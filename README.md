@@ -6,7 +6,7 @@ You must have docker compose on your machine, run the following command to start
 #to build containers
 docker compose build
 # to run containers
-docker compose compose up
+docker compose up
 # to stop containers
 docker compose down
 # or
