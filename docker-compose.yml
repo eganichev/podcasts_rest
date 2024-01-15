@@ -1,0 +1,45 @@
+version: "3.7"
+
+networks:
+  podcasts-backend:
+    driver: bridge
+
+services:
+  backend:
+    container_name: server
+    restart: always
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    env_file:
+      - server/.env
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    ports:
+      - "127.0.0.1:3001:3001"
+#    depends_on:
+#      - dse-redis
+#      - dse-postgres
+    networks:
+      - podcasts-backend
+  client:
+    container_name: client
+    restart: always
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+#    env_file:
+#      - client/.env
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    ports:
+      - "127.0.0.1:3000:3000"
+    #    depends_on:
+    #      - dse-redis
+    #      - dse-postgres
+    depends_on:
+      - backend
+    networks:
+      - podcasts-backend
