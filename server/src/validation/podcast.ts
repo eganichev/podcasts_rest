@@ -34,6 +34,24 @@ const podcastsQuerySchema = z.object({
     .strict(),
 });
 
+export const podcastsGQLQuerySchema = z.object({
+  query: z
+    .object({
+      title: z.string().optional(),
+      categoryName: z.string().optional(),
+      search: z.string().optional(),
+      page: z.number().optional().default(1),
+      limit: z.number().optional().default(100),
+      p: z.number().optional(),
+      l: z.number().optional(),
+    })
+    .strict(),
+});
+
 export type PodcastsQueryParams = z.infer<typeof podcastsQuerySchema>["query"];
+
+export type PodcastsGQLQueryParams = z.infer<
+  typeof podcastsGQLQuerySchema
+>["query"];
 
 export default podcastsQuerySchema;

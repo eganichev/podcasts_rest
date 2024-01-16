@@ -7,6 +7,9 @@ import heartbeat from "./routes/heartbeat";
 import { handleErrors } from "./middleware/error";
 
 import { rateLimit } from "express-rate-limit";
+import { ApolloServer, gql } from "apollo-server-express";
+import resolvers from "./apollo/resolvers";
+import typeDefs from "./apollo/types";
 
 const limiter = rateLimit({
   windowMs: Number(process.env.LIMITER_WINDOWMS), //15 * 60 * 1000 - 15 minutes
@@ -25,6 +28,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/heartbeat", heartbeat);
 app.use("/podcasts", podcasts);
 app.use(handleErrors);
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+server.applyMiddleware({
+  app,
+  path: "/graphql",
+  cors: {
+    credentials: true,
+    origin: true,
+  },
+});
 
 const start = (): void => {
   try {
