@@ -21,7 +21,10 @@ LIMITER_WINDOWMS=900000
 LIMITER_LIMIT=100
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to use rest api.
+
+Or\
+Open [http://localhost:3000/graph](http://localhost:3000) with your browser to use GraphQL.
 
 You can start modifying `LIMITER_WINDOWMS` and `LIMITER_LIMIT` to change requests limit to server.
 
@@ -30,4 +33,5 @@ You can start modifying `LIMITER_WINDOWMS` and `LIMITER_LIMIT` to change request
 On client .env file contains
 ```
 NEXT_PUBLIC_REST_HOST=http://localhost:3001
+NEXT_PUBLIC_GQL_HOST=http://localhost:3001/graphql
 ```
